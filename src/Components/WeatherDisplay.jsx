@@ -1,14 +1,34 @@
 import { useEffect, useState } from "react";
+import axios from "axios";
 
 const WeatherDisplay = () => {
+
+  const [data, setData] = useState({});
+  const [location, setLocation] = useState("");
+
+  const apiKey = import.meta.env.VITE_REACT_OPEN_WEATHER_SECRET_KEY;
+	const url = `https://api.openweathermap.org/data/2.5/weather?q=${location}&appid=${apiKey}&units=matric`;
+
+  const searchLocation = (event) => {
+		if (event.key === "Enter") {
+			axios.get(url).then((response) => {
+				setData(response.data);
+				console.log("Weather data:", response.data); // This line should be removed in production
+			});
+      setLocation("");
+		}
+	};
+
+
+
+
+
 	const [currentDate, setCurrentDate] = useState(new Date());
 	const [currentTime, setCurrentTime] = useState(new Date());
-
 	const formatDate = (date) => {
 		const options = { month: "long", day: "numeric", year: "numeric" };
 		return new Intl.DateTimeFormat("en-US", options).format(date);
-	};
-
+  };
 	const formatTime = (date) => {
 		const options = {
 			weekday: "long",
@@ -18,8 +38,7 @@ const WeatherDisplay = () => {
 		};
 		return new Intl.DateTimeFormat("en-US", options).format(date);
 	};
-
-	useEffect(() => {
+  useEffect(() => {
 		const timer = setInterval(() => {
 			setCurrentDate(new Date());
 			setCurrentTime(new Date());
@@ -37,13 +56,18 @@ const WeatherDisplay = () => {
 				<input
 					type="text"
 					className="grow border-0 input input-ghost h-10"
-					placeholder="Search"
+          placeholder="Search For City"
+          value={location}
+          onChange={(e) => {
+            setLocation(e.target.value);
+          }}
+          onKeyDownCapture={searchLocation}
 				/>
 				<svg
 					xmlns="http://www.w3.org/2000/svg"
 					viewBox="0 0 16 16"
 					fill="currentColor"
-					className="w-4 h-4 opacity-70"
+					className="w-4 h-4 opacity-90 text-indigo-600 "
 				>
 					<path
 						fillRule="evenodd"

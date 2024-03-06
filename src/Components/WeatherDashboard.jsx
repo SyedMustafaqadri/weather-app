@@ -1,7 +1,7 @@
 const WeatherDashboard = () => {
 	return (
-		<div className="pt-4 px-10 pb-4 flex flex-col xl:w-3/4 lg:w-3/4 h-full">
-			<div className="h-[10%] flex gap-10 items-center">
+		<div className="lg:pt-4 lg:px-10 lg:pb-4 sm:pt-10 sm:px-20 sm:pb-10 max-sm:p-7 flex flex-col xl:w-3/4 lg:w-3/4 h-full">
+			<div className="h-[10%] flex gap-10 items-center ">
 				<p className="text-2xl font-medium">Today</p>
 				<p className="text-xl font-medium">Tomorrow</p>
 			</div>
